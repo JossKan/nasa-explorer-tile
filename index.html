@@ -3,8 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NASA SpaceApp Challenge</title>
-    <link rel="stylesheet" href="css/estilos.css">
+    <title>NASA Tile Explorer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background: url('image/lunaInicio.png') center/cover no-repeat;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            transition: all 1s ease;
+        }
+
+        .overlay.hidden {
+            opacity: 0;
+            backdrop-filter: blur(0);
+            pointer-events: none;
+        }
+
+        .content {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: white;
+            text-align: center;
+            transition: transform 1s ease, opacity 1s ease;
+        }
+
+        .content.slide-up {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        h1 {
+            font-size: 5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .description {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            background: white;
+            color: #333;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover .arrow {
+            transform: translateX(5px);
+        }
+
+        .explorer-view {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: top 1s ease;
+            z-index: 5;
+        }
+
+        .explorer-view.active {
+            top: 0;
+        }
+
+        .explorer-content {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            max-width: 800px;
+        }
+
+        .explorer-content h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .explorer-content p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .image-info {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .explorer-content h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -30,28 +185,44 @@
                 <li><a href="#">Descargar</a></li>
                 <li><a href="#">Después</a></li>
             </ul>
+    <div class="container">
+        <div class="overlay" id="overlay"></div>
+        
+        <div class="content" id="content">
+            <div class="subtitle">NASA TILE EXPLORER</div>
+            <h1>Explora el<br>Universo</h1>
+            <p class="description">Descubre imágenes fascinantes del cosmos</p>
+            <button class="btn" id="exploreBtn">
+                Comenzar exploración
+                <span class="arrow">→</span>
+            </button>
         </div>
 
-        <!-- Overlay oscuro -->
-        <div id="overlay" class="overlay"></div>
-
-        <!-- DIV 2: Visor de la luna -->
-        <div id="visor-luna">
-            <!-- Aquí irá OpenSeadragon -->
-            <!-- <script src="https://openseadragon.github.io/openseadragon/openseadragon.min.js"></script> -->
-            <!-- <script src="https://openseadragon.github.io/openseadragon/openseadragon.min.js"></script> -->
-
-
-        <div  style="width: 100%;"id="app">
-            <div style="width: 100%;" id="viewer"></div>
-        </div>
-            <script src="https://cdn.jsdelivr.net/npm/openseadragon@4.1.0/build/openseadragon/openseadragon.min.js"></script>
-            <script src="smfc/smfc1.js"></script>
+        <div class="explorer-view" id="explorerView">
+            <div class="explorer-content">
+                <h2>¡Bienvenido al Cosmos!</h2>
+                <p>Ahora puedes ver la majestuosidad del universo sin límites. Esta imagen captura la belleza infinita del espacio exterior.</p>
+                <div class="image-info">
+                    <p><strong>Vista completa revelada</strong></p>
+                    <p>Explora las maravillas del cosmos en alta definición</p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <script src="https://openseadragon.github.io/openseadragon/openseadragon.min.js"></script>
-    <script src="smfc/script.js"></script>
+    <script>
+        const exploreBtn = document.getElementById('exploreBtn');
+        const content = document.getElementById('content');
+        const overlay = document.getElementById('overlay');
 
+        exploreBtn.addEventListener('click', () => {
+            content.classList.add('slide-up');
+            overlay.classList.add('hidden');
+            
+            setTimeout(() => {
+                window.location.href = 'bienvenida.html';
+            }, 1000);
+        });
+    </script>
 </body>
 </html>
