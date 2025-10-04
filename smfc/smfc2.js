@@ -1,8 +1,9 @@
+
 // Espera a que todo el contenido del DOM esté cargado antes de ejecutar el script
 document.addEventListener('DOMContentLoaded', (event) => {
 
     // Inicializa el visor de OpenSeadragon
-
+const channel = new BroadcastChannel('actualizar_marcadores');
     const viewer = OpenSeadragon({
         id: "viewer2",
         prefixUrl: "https://openseadragon.github.io/openseadragon/images/",
@@ -20,9 +21,39 @@ document.addEventListener('DOMContentLoaded', (event) => {
             scrollToZoom: true
         }
     });
+//
+    // Función para cambiar la imagen del visor
+    window.cambiarImagenVisor2 = function(fecha) {
+        // Mapeo de fechas a archivos DZI
+        const mapaFechasImagenes = {
+            '2024-02-24': '../image/lunas/luneta_dos.dzi',
+            '2003-10-18': '../image/lunas/luneta_tres.dzi',
+            '2003-11-17': '../image/lunas/luneta_cuatro.dzi',
+            '2013-10-15': '../image/lunas/luneta_cinco.dzi',
+            '2024-12-15': '../image/lunas/luneta_seis.dzi',
+            '2024-12-20': '../image/lunas/luneta_siete.dzi',
+        };
+
+        const rutaImagen = mapaFechasImagenes[fecha];
+        
+        if (rutaImagen) {
+            // Abre la nueva imagen en el visor
+            viewer.open(rutaImagen);
+            console.log('Imagen cambiada a:', rutaImagen);
+        } else {
+            console.warn('No hay imagen disponible para la fecha:', fecha);
+            alert('No hay imagen disponible para la fecha seleccionada');
+        }
+    };
+    // 2. FUNCIONES PARA MANEJAR MARCADORES
+
+
 
         function saveTags(tags) {
         localStorage.setItem('tags', JSON.stringify(tags));
+
+        channel.postMessage('update'); 
+        console.log('Script 2: Mensaje de actualización enviado.');
     }
 
     // Dibuja un marcador en la imagen y en la lista lateral
@@ -122,7 +153,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
         loadTags();
     });
 
-    
+    channel.onmessage = function(event) {
+        console.log('Script 2: ¡Mensaje recibido! Actualizando...');
+        
+        // Si el mensaje es 'update', recargamos los marcadores.
+        if (event.data === 'update') {
+            loadTags(); // Llama a la función loadTags() de ESTE script (smfc2.js).
+        }
+    };
 
     // Añade un manejador de eventos para el clic en el canvas
     /*viewer.addHandler('canvas-click', function(event) {
