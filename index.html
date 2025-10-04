@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NASA SpaceApp Challenge</title>
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
 
@@ -36,11 +36,19 @@
         <!-- DIV 2: Visor de la luna -->
         <div id="visor-luna">
             <!-- Aquí irá OpenSeadragon -->
+            <!-- <script src="https://openseadragon.github.io/openseadragon/openseadragon.min.js"></script> -->
+            <!-- <script src="https://openseadragon.github.io/openseadragon/openseadragon.min.js"></script> -->
+
+
+        <div  style="width: 100%;"id="app">
+            <div style="width: 100%;" id="viewer"></div>
+        </div>
+            <script src="https://cdn.jsdelivr.net/npm/openseadragon@4.1.0/build/openseadragon/openseadragon.min.js"></script>
+            <script src="smfc/smfc1.js"></script>
         </div>
     </div>
 
-    <script src="https://openseadragon.github.io/openseadragon/openseadragon.min.js"></script>
-    <script src="script.js"></script>
+    <script src="smfc/script.js"></script>
 
 </body>
 </html>
