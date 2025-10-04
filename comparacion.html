@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASA SpaceApp Challenge</title>
+    <link rel="stylesheet" href="css/estilos.css">      
+    <link rel="stylesheet" href="css/comparacion.css"> 
+</head>
+<body>
+
+    <div id="app">
+        <!-- Botón hamburguesa -->
+        <button id="btn-toggle" class="boton-hamburguesa">
+            <span class="linea"></span>
+            <span class="linea"></span>
+            <span class="linea"></span>
+        </button>
+
+        <!-- DIV 1: Menú lateral -->
+        <div id="menu-lateral" class="cerrado">
+            <button id="btn-cerrar" class="boton-cerrar">&times;</button>
+            
+            <h2>Menú</h2>
+            <ul>
+                <li><a href="#">Marcadores</a></li>
+                <li><a href="#">Comparar</a></li>
+                <li><a href="#">Descargar</a></li>
+                <li><a href="#">Después</a></li>
+            </ul>
+        </div>
+
+        <!-- Overlay oscuro -->
+        <div id="overlay" class="overlay"></div>
+
+       <div id="contenedor-comparacion">
+    <!-- DIV 2: Visor imagen izquierda -->
+    <div id="visor-izquierdo" class="visor">
+        <div class="etiqueta-visor">Imagen 1</div>
+        
+        <!-- Panel de fecha izquierdo -->
+        <div class="panel-fecha">
+            <!-- Botones de fases -->
+            <div class="fases-lunares">
+                <button class="btn-fase" data-fase="llena" data-visor="izq">
+                    🌕 Llena
+                </button>
+                <button class="btn-fase" data-fase="nueva" data-visor="izq">
+                    🌑 Nueva
+                </button>
+                <button class="btn-fase" data-fase="creciente" data-visor="izq">
+                    🌓 Creciente
+                </button>
+                <button class="btn-fase" data-fase="menguante" data-visor="izq">
+                    🌗 Menguante
+                </button>
+            </div>
+
+            <!-- Dropdown de fechas específicas -->
+            <div id="dropdown-fechas-izq" class="dropdown-fechas oculto">
+                <select id="select-fechas-izq" class="select-fechas-fase">
+                    <option value="">Selecciona una fecha de esta fase</option>
+                </select>
+            </div>
+
+            <!-- Separador -->
+            <div class="separador">o selecciona manualmente:</div>
+
+            <!-- Selector normal -->
+            <label for="fecha-izq">Selecciona fecha:</label>
+            <input type="date" id="fecha-izq" class="selector-fecha" 
+                   min="1986-01-15" max="2024-12-31">
+            <input type="text" id="display-izq" class="display-fecha" readonly 
+                   placeholder="Ninguna fecha seleccionada">
+        </div>
+    </div> <!-- ✅ Cierre correcto de visor-izquierdo -->
+
+    <!-- DIV 3: Visor imagen derecha -->
+    <div id="visor-derecho" class="visor">
+        <div class="etiqueta-visor">Imagen 2</div>
+        
+        <!-- Panel de fecha derecho -->
+        <div class="panel-fecha">
+            <!-- Botones de fases -->
+            <div class="fases-lunares">
+                <button class="btn-fase" data-fase="llena" data-visor="der">
+                    🌕 Llena
+                </button>
+                <button class="btn-fase" data-fase="nueva" data-visor="der">
+                    🌑 Nueva
+                </button>
+                <button class="btn-fase" data-fase="creciente" data-visor="der">
+                    🌓 Creciente
+                </button>
+                <button class="btn-fase" data-fase="menguante" data-visor="der">
+                    🌗 Menguante
+                </button>
+            </div>
+
+            <!-- Dropdown de fechas específicas -->
+            <div id="dropdown-fechas-der" class="dropdown-fechas oculto">
+                <select id="select-fechas-der" class="select-fechas-fase">
+                    <option value="">Selecciona una fecha de esta fase</option>
+                </select>
+            </div>
+
+            <!-- Separador -->
+            <div class="separador">o selecciona manualmente:</div>
+
+            <!-- Selector normal -->
+            <label for="fecha-der">Selecciona fecha:</label>
+            <input type="date" id="fecha-der" class="selector-fecha" 
+                   min="1986-01-15" max="2024-12-31">
+            <input type="text" id="display-der" class="display-fecha" readonly 
+                   placeholder="Ninguna fecha seleccionada">
+        </div>
+    </div> <!-- ✅ Cierre correcto de visor-derecho -->
+</div> 
+
+    <script src="https://openseadragon.github.io/openseadragon/openseadragon.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/fechas.js"></script>
+    <script src="js/fases-lunares.js"></script>
+
+</body>
+</html>
