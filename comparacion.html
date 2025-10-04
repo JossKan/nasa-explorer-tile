@@ -23,6 +23,7 @@
             
             <h2>Menú</h2>
             <ul>
+                <li><a href="index.html">Inicio</a></li>
                 <li><a href="#">Marcadores</a></li>
                 <li><a href="#">Comparar</a></li>
                 <li><a href="#">Descargar</a></li>
@@ -37,6 +38,12 @@
     <!-- DIV 2: Visor imagen izquierda -->
     <div id="visor-izquierdo" class="visor">
         <div class="etiqueta-visor">Imagen 1</div>
+
+        <div  style="width: 100%;"id="app">
+        <div style="width: 100%;" id="viewer"></div>
+        </div>
+            <script src="https://cdn.jsdelivr.net/npm/openseadragon@4.1.0/build/openseadragon/openseadragon.min.js"></script>
+            <script src="smfc/smfc1.js"></script>
         
         <!-- Panel de fecha izquierdo -->
         <div class="panel-fecha">
@@ -78,6 +85,11 @@
     <!-- DIV 3: Visor imagen derecha -->
     <div id="visor-derecho" class="visor">
         <div class="etiqueta-visor">Imagen 2</div>
+        
+        <div  style="width: 100%;"id="app">
+            <div style="width: 100%;" id="viewer2"></div>
+        </div>
+            <script src="smfc/smfc2.js"></script>
         
         <!-- Panel de fecha derecho -->
         <div class="panel-fecha">
