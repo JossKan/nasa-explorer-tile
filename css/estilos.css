@@ -9,7 +9,7 @@ body, html {
     height: 100%;
     overflow: hidden;
     font-family: 'Arial', sans-serif;
-    background-color: #000;
+    background-color: #000000;
 }
 
 /* Contenedor principal */
@@ -175,4 +175,45 @@ body, html {
 .boton-hamburguesa.activo {
     opacity: 0;
     pointer-events: none;
+}
+
+/* Archivo: smfc/estilos.css */
+
+/* * PARTE 1: MOVER LA BARRA DE BOTONES 
+ * El selector .openseadragon-container > .openseadragon-toolbar apunta a la barra
+ * que contiene todos los botones de control.
+*/
+.openseadragon-container > .openseadragon-toolbar {
+    top: auto !important;
+    left: auto !important;
+    bottom: 20px !important;
+    right: 20px !important;
+}
+
+
+/* * PARTE 2: REDISEÑAR LOS BOTONES (Ejemplo de estilo oscuro y redondo)
+ * El selector .openseadragon-toolbar .openseadragon-button apunta a cada botón.
+*/
+.openseadragon-toolbar .openseadragon-button {
+    background-color: rgba(224, 37, 37, 0.6); /* Fondo negro semi-transparente */
+    border: 1px solid rgba(50, 179, 189, 0.658); /* Borde blanco sutil */
+    border-radius: 50%;                     /* ¡Los hacemos redondos! */
+    width: 45px;                            /* Ancho del botón */
+    height: 45px;                           /* Alto del botón */
+    box-shadow: 0 2px 8px rgba(99, 57, 57, 0.5);  /* Sombra para dar profundidad */
+    transition: all 0.2s ease;              /* Transición suave para el hover */
+}
+
+/* Efecto cuando pasas el mouse por encima de un botón */
+.openseadragon-toolbar .openseadragon-button:hover {
+    background-color: rgba(202, 56, 56, 0.9); /* Se oscurece un poco más */
+    transform: scale(1.1);                   /* Se agranda ligeramente */
+}
+
+/* * PARTE 3: CAMBIAR EL COLOR DE LOS ÍCONOS (+, -, casa)
+ * Por defecto son negros, los cambiamos a blanco para que contrasten.
+*/
+.openseadragon-button .openseadragon-icon {
+    /* Este truco CSS invierte el color del ícono a blanco */
+    filter: brightness(0) invert(1);
 }
