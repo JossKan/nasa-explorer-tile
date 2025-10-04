@@ -1,11 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nasa Explorer</title>
+    <title>NASA SpaceApp Challenge</title>
+    <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-    
+
+    <div id="app">
+        <!-- Botón hamburguesa -->
+        <button id="btn-toggle" class="boton-hamburguesa">
+            <span class="linea"></span>
+            <span class="linea"></span>
+            <span class="linea"></span>
+        </button>
+
+        <!-- DIV 1: Menú lateral -->
+        <div id="menu-lateral" class="cerrado">
+            <!-- Botón cerrar dentro del menú -->
+            <button id="btn-cerrar" class="boton-cerrar">&times;</button>
+            
+            <h2>Menú</h2>
+            <ul>
+                <li><a href="#">Marcadores</a></li>
+                <li><a href="#">Comparar</a></li>
+                <li><a href="#">Descargar</a></li>
+                <li><a href="#">Después</a></li>
+            </ul>
+        </div>
+
+        <!-- Overlay oscuro -->
+        <div id="overlay" class="overlay"></div>
+
+        <!-- DIV 2: Visor de la luna -->
+        <div id="visor-luna">
+            <!-- Aquí irá OpenSeadragon -->
+        </div>
+    </div>
+
+    <script src="https://openseadragon.github.io/openseadragon/openseadragon.min.js"></script>
+    <script src="script.js"></script>
+
 </body>
 </html>
