@@ -1,8 +1,9 @@
+
 // Espera a que todo el contenido del DOM esté cargado antes de ejecutar el script
 document.addEventListener('DOMContentLoaded', (event) => {
 
     // Inicializa el visor de OpenSeadragon
-
+const channel = new BroadcastChannel('actualizar_marcadores');
     const viewer = OpenSeadragon({
         id: "viewer2",
         prefixUrl: "https://openseadragon.github.io/openseadragon/images/",
@@ -50,6 +51,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         function saveTags(tags) {
         localStorage.setItem('tags', JSON.stringify(tags));
+
+        channel.postMessage('update'); 
+        console.log('Script 2: Mensaje de actualización enviado.');
     }
 
     // Dibuja un marcador en la imagen y en la lista lateral
@@ -149,7 +153,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
         loadTags();
     });
 
-    
+    channel.onmessage = function(event) {
+        console.log('Script 2: ¡Mensaje recibido! Actualizando...');
+        
+        // Si el mensaje es 'update', recargamos los marcadores.
+        if (event.data === 'update') {
+            loadTags(); // Llama a la función loadTags() de ESTE script (smfc2.js).
+        }
+    };
 
     // Añade un manejador de eventos para el clic en el canvas
     /*viewer.addHandler('canvas-click', function(event) {
