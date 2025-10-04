@@ -15,16 +15,117 @@ document.addEventListener('DOMContentLoaded', (event) => {
         constrainDuringPan: false,
         zoomPerScroll: 1.3,
         gestureSettingsMouse: {
-            clickToZoom: true,
-            dblClickToZoom: true,
+            clickToZoom: false,
+            dblClickToZoom: false,
             scrollToZoom: true
         }
+    });
+
+        function saveTags(tags) {
+        localStorage.setItem('tags', JSON.stringify(tags));
+    }
+
+    // Dibuja un marcador en la imagen y en la lista lateral
+    function drawTag(tag, index) {
+        // --- A. Dibuja el punto rojo en la imagen (Overlay) ---
+        const tagElement = document.createElement("div");
+        tagElement.className = "tag";
+        tagElement.title = tag.text;
+        tagElement.style.width = "10px";
+        tagElement.style.height = "10px";
+        tagElement.style.backgroundColor = "red";
+        tagElement.style.borderRadius = "50%";
+        tagElement.style.cursor = "pointer";
+        viewer.addOverlay({
+            element: tagElement,
+            location: new OpenSeadragon.Point(tag.x, tag.y)
+        });
+
+        // --- B. Crea el elemento en la lista lateral ---
+        const list = document.getElementById('tag-list2');
+        const listItem = document.createElement('li');
+
+        // El texto del marcador, que al hacer clic te lleva al punto
+        const textSpan = document.createElement('span');
+        textSpan.textContent = tag.text;
+        textSpan.style.cursor = "pointer";
+        textSpan.onclick = function() {
+            viewer.viewport.panTo(new OpenSeadragon.Point(tag.x, tag.y));
+            viewer.viewport.zoomTo(5);
+        };
+
+        // El botón para borrar el marcador
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = '✖️';
+        deleteBtn.className = 'delete-btn';
+        deleteBtn.onclick = function() {
+            deleteTag(index);
+        };
+
+        listItem.appendChild(textSpan);
+        listItem.appendChild(deleteBtn);
+        list.appendChild(listItem);
+    }
+    
+    // Borra un marcador específico
+    function deleteTag(index) {
+        if (!confirm('¿Estás seguro de que quieres borrar este marcador?')) {
+            return;
+        }
+        let tags = JSON.parse(localStorage.getItem('tags')) || [];
+        tags.splice(index, 1); // Elimina el elemento en la posición 'index'
+        saveTags(tags); // Guarda la nueva lista (sin el elemento borrado)
+        loadTags(); // Recarga la vista para reflejar el cambio
+    }
+
+    // Carga todos los marcadores guardados al iniciar y al hacer cambios
+    function loadTags() {
+        viewer.clearOverlays(); // Limpia los puntos rojos de la imagen antes de volver a dibujar
+        
+        const list = document.getElementById('tag-list2');
+        if (list) {
+            list.innerHTML = ''; // Limpia la lista de texto
+        }
+
+        let tags = JSON.parse(localStorage.getItem('tags')) || [];
+        tags.forEach((tag, index) => {
+            drawTag(tag, index);
+        });
+    }
+
+
+    // 3. MANEJADORES DE EVENTOS
+    // ---------------------------
+
+    // Evento para AÑADIR un nuevo marcador al hacer clic
+    viewer.addHandler('canvas-double-click', function(event) {
+        let comment = prompt("¿Qué has encontrado? (Ej: Cráter Tycho)");
+
+        if (comment && comment.trim() !== '') { // Si el usuario escribe algo
+            let viewportPoint = viewer.viewport.pointFromPixel(event.position);
+            
+            let newTag = {
+                x: viewportPoint.x,
+                y: viewportPoint.y,
+                text: comment
+            };
+            
+            let tags = JSON.parse(localStorage.getItem('tags')) || [];
+            tags.push(newTag); // Añade el nuevo marcador a la lista
+            saveTags(tags);    // Guarda la lista actualizada
+            loadTags();        // Recarga y muestra todo
+        }
+    });
+
+    // Evento para CARGAR los marcadores existentes cuando el visor esté listo
+    viewer.addHandler('open', function() {
+        loadTags();
     });
 
     
 
     // Añade un manejador de eventos para el clic en el canvas
-    viewer.addHandler('canvas-click', function(event) {
+    /*viewer.addHandler('canvas-click', function(event) {
         // Pide al usuario un comentario sobre el punto
         let comment = prompt("¿Qué has encontrado? (Ej: Posible supernova, galaxia espiral)");
 
@@ -76,7 +177,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
 
         // Añade la etiqueta a la lista de la barra lateral
-        const list = document.getElementById('tag-list');
+        const list = document.getElementById('tag-list2');
         const listItem = document.createElement('li');
         listItem.textContent = tag.text;
         listItem.style.cursor = "pointer";
@@ -90,7 +191,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Carga todas las etiquetas guardadas del localStorage
     function loadTags() {
-        const list = document.getElementById('tag-list');
+        const list = document.getElementById('tag-list2');
         if (list) {
             list.innerHTML = ''; // Limpia la lista actual para evitar duplicados
         }
@@ -104,5 +205,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
     viewer.addHandler('open', function() {
         loadTags();
     });
-
+*/
 });

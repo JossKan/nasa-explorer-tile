@@ -6,6 +6,7 @@
     <title>NASA SpaceApp Challenge</title>
     <link rel="stylesheet" href="css/estilos.css">
     <link rel="stylesheet" href="css/comparacion.css">
+    <script src="https://cdn.jsdelivr.net/npm/openseadragon@4.1.0/build/openseadragon/openseadragon.min.js"></script>
 </head>
 <body>
 
@@ -24,12 +25,17 @@
             <h2>Menú</h2>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="#">Marcadores</a></li>
+                <li><a href="#">Marcadores</a>
+                    <ul id="tag-list"></ul>
+                    <p>izquierda</p>
+                    <ul id="tag-list2"></ul>
+                </li>
                 <li><a href="#">Comparar</a></li>
                 <li><a href="#">Descargar</a></li>
                 <li><a href="#">Después</a></li>
             </ul>
         </div>
+        
 
         <!-- Overlay oscuro -->
         <div id="overlay" class="overlay"></div>
@@ -40,9 +46,9 @@
         <div class="etiqueta-visor">Imagen 1</div>
 
         <div  style="width: 100%;"id="app">
-        <div style="width: 100%;" id="viewer"></div>
+            <div style="width: 100%;" id="viewer"></div>
         </div>
-            <script src="https://cdn.jsdelivr.net/npm/openseadragon@4.1.0/build/openseadragon/openseadragon.min.js"></script>
+            
             <script src="smfc/smfc1.js"></script>
         
         <!-- Panel de fecha izquierdo -->

@@ -176,3 +176,33 @@ body, html {
     opacity: 0;
     pointer-events: none;
 }
+
+
+/* Estilos para la lista de marcadores */
+#tag-list li {
+    display: flex;
+    justify-content: space-between; /* Pone el texto a la izquierda y el botón a la derecha */
+    align-items: center;
+    margin-bottom: 8px;
+    padding: 5px;
+    border-bottom: 1px solid #444;
+}
+
+/* Estilos para el botón de borrar */
+.delete-btn {
+    background: #c0392b; /* Color rojo */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 24px;
+    padding: 0;
+    margin-left: 10px;
+}
+
+.delete-btn:hover {
+    background: #e74c3c; /* Rojo más brillante al pasar el mouse */
+}
