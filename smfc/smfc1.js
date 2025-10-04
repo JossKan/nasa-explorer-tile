@@ -1,6 +1,7 @@
+const channel = new BroadcastChannel('actualizar_marcadores');
 // Espera a que todo el contenido del DOM esté cargado antes de ejecutar el script
 document.addEventListener('DOMContentLoaded', (event) => {
-
+    
     // 1. INICIALIZA EL VISOR DE OPENSEADRAGON
     // ------------------------------------------
     const viewer = OpenSeadragon({
@@ -55,6 +56,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Guarda la lista completa de marcadores en la memoria del navegador
     function saveTags(tags) {
         localStorage.setItem('tags', JSON.stringify(tags));
+        channel.postMessage('update');
+        console.log('Script 1: Mensaje de actualización enviado.');
     }
 
     // Dibuja un marcador en la imagen y en la lista lateral
@@ -153,5 +156,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     viewer.addHandler('open', function() {
         loadTags();
     });
+
+    channel.onmessage = function(event) {
+        console.log('Script 1: ¡Mensaje recibido! Actualizando...');
+        if (event.data === 'update') {
+            loadTags(); // Llama a su PROPIA función loadTags
+        }
+    };
 
 });
