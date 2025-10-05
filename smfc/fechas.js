@@ -77,9 +77,19 @@ btnConfirmarIzq.addEventListener('click', () => {
         return;
     }
 
-// Cambia la imagen del visor izquierdo
+    // Cambia la imagen del visor izquierdo
     if (typeof window.cambiarImagenVisor1 === 'function') {
         window.cambiarImagenVisor1(fechaSeleccionada);
+        
+        // Actualizar el header con la información
+        const faseActiva = document.querySelector('.btn-fase.activo[data-visor="izq"]');
+        const fase = faseActiva ? faseActiva.dataset.fase : null;
+        actualizarInfoDisplay('izq', fase, fechaSeleccionada);
+        
+        // Cerrar el panel después de confirmar
+        document.getElementById('panel-fecha-izq').classList.add('oculto');
+        document.getElementById('header-izq').classList.remove('activo');
+        
         // Feedback visual
         btnConfirmarIzq.textContent = '✓ Confirmado';
         setTimeout(() => {
@@ -109,6 +119,16 @@ btnConfirmarDer.addEventListener('click', () => {
     // Cambia la imagen del visor derecho
     if (typeof window.cambiarImagenVisor2 === 'function') {
         window.cambiarImagenVisor2(fechaSeleccionada);
+        
+        // Actualizar el header con la información
+        const faseActiva = document.querySelector('.btn-fase.activo[data-visor="der"]');
+        const fase = faseActiva ? faseActiva.dataset.fase : null;
+        actualizarInfoDisplay('der', fase, fechaSeleccionada);
+        
+        // Cerrar el panel después de confirmar
+        document.getElementById('panel-fecha-der').classList.add('oculto');
+        document.getElementById('header-der').classList.remove('activo');
+        
         // Feedback visual
         btnConfirmarDer.textContent = '✓ Confirmado';
         setTimeout(() => {
@@ -137,4 +157,46 @@ function limpiarFechas() {
     fechaDer.value = '';
     displayIzq.value = '';
     displayDer.value = '';
+}
+// ============================================
+// TOGGLE DE PANELES Y ACTUALIZACIÓN DE HEADERS
+// ============================================
+
+// Toggle para mostrar/ocultar paneles de fecha
+document.getElementById('header-izq').addEventListener('click', function() {
+    const panel = document.getElementById('panel-fecha-izq');
+    const header = document.getElementById('header-izq');
+    
+    panel.classList.toggle('oculto');
+    header.classList.toggle('activo');
+});
+
+document.getElementById('header-der').addEventListener('click', function() {
+    const panel = document.getElementById('panel-fecha-der');
+    const header = document.getElementById('header-der');
+    
+    panel.classList.toggle('oculto');
+    header.classList.toggle('activo');
+});
+
+// Función para actualizar el display del header con fase o fecha
+window.actualizarInfoDisplay = function(visor, fase, fecha) {
+    const display = document.getElementById('info-display-' + visor);
+    
+    if (fase) {
+        // Si hay fase seleccionada, mostrar el emoji y nombre de la fase
+        const fases = {
+            'llena': '🌕 Luna Llena',
+            'nueva': '🌑 Luna Nueva',
+            'creciente': '🌓 Cuarto Creciente',
+            'menguante': '🌗 Cuarto Menguante'
+        };
+        display.textContent = fases[fase] || 'Luna ' + (visor === 'izq' ? '1' : '2');
+    } else if (fecha) {
+        // Si solo hay fecha, mostrarla formateada
+        display.textContent = formatearFecha(fecha);
+    } else {
+        // Si no hay nada, mostrar el texto por defecto
+        display.textContent = 'Luna ' + (visor === 'izq' ? '1' : '2');
+    }
 }
