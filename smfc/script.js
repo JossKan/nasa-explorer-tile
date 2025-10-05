@@ -36,3 +36,40 @@ document.addEventListener('keydown', (e) => {
         cerrarMenu();
     }
 });
+
+// --- CONTROL DEL PANEL DE MARCADORES ---
+const btnToggleMarcadores = document.getElementById('btn-toggle-marcadores');
+const btnCerrarMarcadores = document.getElementById('btn-cerrar-marcadores');
+const panelMarcadores = document.getElementById('panel-marcadores');
+
+// Función para abrir el panel de marcadores
+function abrirPanelMarcadores() {
+    panelMarcadores.classList.remove('cerrado');
+}
+
+// Función para cerrar el panel de marcadores
+function cerrarPanelMarcadores() {
+    panelMarcadores.classList.add('cerrado');
+}
+
+// Event listeners para el panel de marcadores
+if (btnToggleMarcadores) {
+    btnToggleMarcadores.addEventListener('click', () => {
+        if (panelMarcadores.classList.contains('cerrado')) {
+            abrirPanelMarcadores();
+        } else {
+            cerrarPanelMarcadores();
+        }
+    });
+}
+
+if (btnCerrarMarcadores) {
+    btnCerrarMarcadores.addEventListener('click', cerrarPanelMarcadores);
+}
+
+// Cerrar panel de marcadores con tecla ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !panelMarcadores.classList.contains('cerrado')) {
+        cerrarPanelMarcadores();
+    }
+});
