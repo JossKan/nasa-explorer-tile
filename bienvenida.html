@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NASA SpaceApp Challenge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/estilos.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
@@ -25,17 +28,34 @@
             <h2>Menú</h2>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="#">Marcadores</a> 
-                    <ul id="tag-list"></ul>
-                </li>
                 <li><a href="comparacion.html">Comparar</a></li>
                 <li><button id="btnDescargar">Descargar como PNG</button></li>
-                <li><a href="#">Después</a></li>
             </ul>
         </div>
 
         <!-- Overlay oscuro -->
         <div id="overlay" class="overlay"></div>
+
+        <!-- Línea de tiempo fija - Siempre visible encima -->
+        <div id="timeline-container-izq" class="timeline-container"></div>
+
+        <!-- Botón para abrir panel de marcadores -->
+        <button class="btn-toggle-marcadores" id="btn-toggle-marcadores">
+            📍
+        </button>
+
+        <!-- Panel de marcadores flotante -->
+        <div class="panel-marcadores cerrado" id="panel-marcadores">
+            <div class="panel-marcadores-header">
+                <h3>Marcadores</h3>
+                <button class="btn-cerrar-marcadores" id="btn-cerrar-marcadores">&times;</button>
+            </div>
+            <div class="panel-marcadores-contenido">
+                <div class="marcadores-seccion">
+                    <ul class="marcadores-lista" id="tag-list"></ul>
+                </div>
+            </div>
+        </div>
 
         <!-- DIV 2: Visor de la luna -->
         <div id="visor-luna" style="background-color: black;">
@@ -47,7 +67,14 @@
         <div style="width: 100%;"id="app">
             <div style="width: 100%;" id="viewer"></div>
 
-            <div id="timeline-container-izq" class="timeline-container"></div>
+            <!-- Controles de zoom personalizados estilo Google Maps -->
+            <div class="custom-zoom-controls">
+                <button class="zoom-btn" id="zoom-in-viewer" title="Zoom in">+</button>
+                <div class="zoom-separator"></div>
+                <button class="zoom-btn" id="zoom-out-viewer" title="Zoom out">−</button>
+                <div class="zoom-separator"></div>
+                <button class="zoom-btn zoom-reset" id="zoom-reset-viewer" title="Reset zoom">⌂</button>
+            </div>
         </div>
             <script src="https://cdn.jsdelivr.net/npm/openseadragon@4.1.0/build/openseadragon/openseadragon.min.js"></script>
             <script src="smfc/smfc1.js"></script>

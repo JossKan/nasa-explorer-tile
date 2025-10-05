@@ -7,17 +7,25 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const viewer = OpenSeadragon({
         id: "viewer",
         prefixUrl: "https://openseadragon.github.io/openseadragon/images/",
-        tileSources: "../image/lunas/luneta_dos.dzi", // <-- Asegúrate que esta ruta sea correcta
-        
+        tileSources: "../image/lunas/luneta_dos.dzi",
+
         // --- Opciones de visualización ---
-        showNavigator: true,
-        defaultZoomLevel: 0, // Inicia con la imagen lo más alejada posible
+        showNavigator: false,
+        defaultZoomLevel: 0,
         minZoomLevel: 0.5,
         maxZoomLevel: 10,
         visibilityRatio: 1.0,
         constrainDuringPan: false,
         zoomPerScroll: 1.3,
-        
+
+        // --- DESHABILITAR TODOS LOS CONTROLES NATIVOS ---
+        showZoomControl: false,
+        showHomeControl: false,
+        showFullPageControl: false,
+        showRotationControl: false,
+        showSequenceControl: false,
+        showNavigationControl: false,
+
         // --- Opciones de los botones de control ---
         gestureSettingsMouse: {
             clickToZoom: false,
@@ -25,6 +33,31 @@ document.addEventListener('DOMContentLoaded', (event) => {
             scrollToZoom: true
         }
     });
+
+    // CONTROLES DE ZOOM PERSONALIZADOS
+    const zoomInBtn = document.getElementById('zoom-in-viewer');
+    const zoomOutBtn = document.getElementById('zoom-out-viewer');
+    const zoomResetBtn = document.getElementById('zoom-reset-viewer');
+
+    if (zoomInBtn) {
+        zoomInBtn.addEventListener('click', function() {
+            viewer.viewport.zoomBy(1.3);
+            viewer.viewport.applyConstraints();
+        });
+    }
+
+    if (zoomOutBtn) {
+        zoomOutBtn.addEventListener('click', function() {
+            viewer.viewport.zoomBy(0.7);
+            viewer.viewport.applyConstraints();
+        });
+    }
+
+    if (zoomResetBtn) {
+        zoomResetBtn.addEventListener('click', function() {
+            viewer.viewport.goHome();
+        });
+    }
 
 
     // Función para cambiar la imagen del visor
