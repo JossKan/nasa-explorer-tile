@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NASA SpaceApp Challenge</title>
     <link rel="stylesheet" href="css/estilos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
@@ -23,11 +24,12 @@
             
             <h2>Menú</h2>
             <ul>
+                <li><a href="index.html">Inicio</a></li>
                 <li><a href="#">Marcadores</a> 
                     <ul id="tag-list"></ul>
                 </li>
                 <li><a href="comparacion.html">Comparar</a></li>
-                <li><a href="#">Descargar</a></li>
+                <li><button id="btnDescargar">Descargar como PNG</button></li>
                 <li><a href="#">Después</a></li>
             </ul>
         </div>
@@ -36,22 +38,56 @@
         <div id="overlay" class="overlay"></div>
 
         <!-- DIV 2: Visor de la luna -->
-        <div id="visor-luna">
+        <div id="visor-luna" style="background-color: black;">
             <!-- Aquí irá OpenSeadragon -->
             <!-- <script src="https://openseadragon.github.io/openseadragon/openseadragon.min.js"></script> -->
             <!-- <script src="https://openseadragon.github.io/openseadragon/openseadragon.min.js"></script> -->
 
 
-        <div  style="width: 100%;"id="app">
+        <div style="width: 100%;"id="app">
             <div style="width: 100%;" id="viewer"></div>
+
+            <div id="timeline-container-izq" class="timeline-container"></div>
         </div>
             <script src="https://cdn.jsdelivr.net/npm/openseadragon@4.1.0/build/openseadragon/openseadragon.min.js"></script>
             <script src="smfc/smfc1.js"></script>
+            <script src="smfc/smfc3.js"></script>
+            
+            
         </div>
+        
     </div>
-
+    
     <script src="https://openseadragon.github.io/openseadragon/openseadragon.min.js"></script>
     <script src="smfc/script.js"></script>
+
+    <script>
+
+
+    document.getElementById('btnDescargar').addEventListener('click', function() {
+        const fechaSeleccionada = window.obtenerTextoDelNodoActivo();
+
+    html2canvas(document.getElementById('visor-luna')).then(function(canvas) {
+        let ctx = canvas.getContext('2d');
+
+        // 🔹 Agrega texto encima de la imagen
+        ctx.font = "16px Arial";
+        ctx.fillStyle = "white";
+        let fecha = new Date().toLocaleString();
+        ctx.fillText("Fecha de descarga: " + fecha, 10, canvas.height - 20);
+        ctx.fillText("Fuente: NASA", 10, canvas.height - 5);
+        ctx.fillText("Fecha de la imagen: "+ fechaSeleccionada, 15, canvas.height - 40);
+
+        let imgData = canvas.toDataURL('image/png');
+
+        let link = document.createElement('a');
+        link.href = imgData;
+        link.download = `captura_${fecha.replace(/[:\/, ]/g, '-')}.png`;
+
+        link.click();
+    });
+});
+</script>
 
 </body>
 </html>
