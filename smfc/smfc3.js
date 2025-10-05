@@ -15,7 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const container = document.getElementById('timeline-container-izq');
-    const fechasDisponibles = Object.keys(mapaFechasParaNodos);
+    const fechasDisponibles = Object.keys(mapaFechasParaNodos).sort((a, b) => {
+        return new Date(a) - new Date(b); // Orden ascendente (más antigua primero)
+    });
 
     fechasDisponibles.forEach(fechaISO => {
         const nodo = document.createElement('div');

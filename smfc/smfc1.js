@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         tileSources: "../image/lunas/luneta_dos.dzi",
 
         // --- Opciones de visualización ---
-        showNavigator: false,
+        showNavigator: true,
         defaultZoomLevel: 0,
         minZoomLevel: 0.5,
         maxZoomLevel: 10,
@@ -95,15 +95,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Dibuja un marcador en la imagen y en la lista lateral
     function drawTag(tag, index) {
-        // --- A. Dibuja el punto rojo en la imagen (Overlay) ---
+        // --- A. Dibuja una BANDERITA en la imagen (Overlay) ---
         const tagElement = document.createElement("div");
         tagElement.className = "tag";
         tagElement.title = tag.text;
-        tagElement.style.width = "10px";
-        tagElement.style.height = "10px";
-        tagElement.style.backgroundColor = "red";
-        tagElement.style.borderRadius = "50%";
+        tagElement.innerHTML = "🚩"; // Emoji de banderita
+        tagElement.style.fontSize = "24px";
         tagElement.style.cursor = "pointer";
+        tagElement.style.lineHeight = "1";
+        tagElement.style.userSelect = "none";
         viewer.addOverlay({
             element: tagElement,
             location: new OpenSeadragon.Point(tag.x, tag.y)
