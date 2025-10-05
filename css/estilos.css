@@ -8,8 +8,9 @@ body, html {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: #000000;
+    color: #ffffff;
 }
 
 /* Contenedor principal */
@@ -20,38 +21,39 @@ body, html {
     position: relative;
 }
 
-/* Botón hamburguesa */
+/* Botón hamburguesa - Estilo SpaceX */
 .boton-hamburguesa {
     position: fixed;
-    top: 20px;
-    left: 20px;
+    top: 25px;
+    left: 25px;
     z-index: 1002;
-    width: 50px;
-    height: 50px;
-    background: rgba(0, 0, 0, 0.8);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 8px;
+    width: 48px;
+    height: 48px;
+    background: rgba(20, 20, 20, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 0;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 5px;
     transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
 }
 
 .boton-hamburguesa:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: scale(1.05);
+    background: rgba(40, 40, 40, 0.95);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
 }
 
 /* Líneas del hamburguesa */
 .linea {
-    width: 25px;
-    height: 3px;
-    background: white;
-    border-radius: 2px;
+    width: 22px;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 0;
     transition: all 0.3s ease;
 }
 
@@ -68,19 +70,20 @@ body, html {
     transform: rotate(-45deg) translateY(-9px);
 }
 
-/* Menú lateral */
+/* Menú lateral - Estilo SpaceX */
 #menu-lateral {
     position: fixed;
     top: 0;
     left: 0;
-    width: 280px;
+    width: 300px;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.95);
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 4rem 1.5rem 2rem;
+    background-color: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 5rem 2rem 2rem;
     color: white;
     overflow-y: auto;
-    transition: transform 0.4s ease;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1001;
     transform: translateX(0);
 }
@@ -93,33 +96,36 @@ body, html {
 /* Botón cerrar (X) dentro del menú */
 .boton-cerrar {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 20px;
+    right: 20px;
     background: transparent;
-    border: none;
-    color: white;
-    font-size: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.5rem;
     cursor: pointer;
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    line-height: 1;
 }
 
 .boton-cerrar:hover {
-    color: #ff4444;
-    transform: rotate(90deg);
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Estilos del menú */
+/* Estilos del menú - SpaceX */
 #menu-lateral h2 {
-    font-size: 1.8rem;
-    margin-bottom: 2rem;
-    text-align: center;
-    font-weight: 300;
-    letter-spacing: 2px;
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+    text-align: left;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #ffffff;
 }
 
 #menu-lateral ul {
@@ -127,22 +133,33 @@ body, html {
 }
 
 #menu-lateral li {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
-#menu-lateral a {
+#menu-lateral a,
+#menu-lateral button {
     display: block;
-    padding: 1rem;
-    color: white;
+    padding: 0.9rem 1rem;
+    color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 0;
     transition: all 0.3s ease;
+    font-size: 0.95rem;
+    font-weight: 400;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
 }
 
-#menu-lateral a:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: translateX(5px);
+#menu-lateral a:hover,
+#menu-lateral button:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 2px solid #ffffff;
+    color: #ffffff;
+    padding-left: 1.5rem;
 }
 
 /* Overlay oscuro */
@@ -178,151 +195,386 @@ body, html {
 }
 
 
-/* Estilos para la lista de marcadores */
-#tag-list li {
+/* Estilos para la lista de marcadores - SpaceX */
+#tag-list li,
+#tag-list2 li {
     display: flex;
-    justify-content: space-between; /* Pone el texto a la izquierda y el botón a la derecha */
+    justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
-    padding: 5px;
-    border-bottom: 1px solid #444;
+    margin-bottom: 0.5rem;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.3s ease;
 }
 
-/* Estilos para el botón de borrar */
+#tag-list li:hover,
+#tag-list2 li:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+#tag-list li span,
+#tag-list2 li span {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Estilos para el botón de borrar - SpaceX */
 .delete-btn {
-    background: #c0392b; /* Color rojo */
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 0;
+    width: 26px;
+    height: 26px;
     cursor: pointer;
-    font-size: 14px;
-    line-height: 24px;
+    font-size: 11px;
+    line-height: 1;
     padding: 0;
     margin-left: 10px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .delete-btn:hover {
-    background: #e74c3c; /* Rojo más brillante al pasar el mouse */
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
 }
 
 .btn-confirmar {
-            width: 100%;
-            padding: 0.8rem;
-            margin-top: 1rem;
-            background: linear-gradient(135deg, rgba(100, 150, 255, 0.3), rgba(100, 200, 255, 0.3));
-            border: 2px solid rgba(100, 150, 255, 0.5);
-            border-radius: 8px;
-            color: white;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-.btn-confirmar:hover {
-      background: linear-gradient(135deg, rgba(100, 150, 255, 0.5), rgba(100, 200, 255, 0.5));        border-color: rgba(100, 150, 255, 0.8);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(100, 150, 255, 0.3);
-    }
-
-    .btn-confirmar:active {
-         transform: translateY(0);
-    }
-
- .btn-confirmar:disabled {
-     opacity: 0.5;
-     cursor: not-allowed;
-    background: rgba(100, 100, 100, 0.3);        border-color: rgba(100, 100, 100, 0.5);
-        }
-
-/* --- TEMA ESPACIAL PARA LA LÍNEA DE TIEMPO --- */
-
-/* Aplicamos la nueva fuente y un fondo oscuro a todo el contenedor */
-.timeline-container {
-    font-family: 'Exo 2', sans-serif;
-    background-color: rgba(10, 20, 40, 0.8); /* Azul oscuro semi-transparente */
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    border-radius: 15px;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2), inset 0 0 10px rgba(0, 150, 255, 0.1);
-    backdrop-filter: blur(5px); /* Desenfoque del fondo */
-    scrollbar-width: none;
-    /* Mantenemos la estructura vertical */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 30px 20px;
-    margin: 30px auto;
-    position: relative;
-    overflow-y: auto;
-    max-height: 500px;
-    width: 220px;
-}
-
-/* La línea de conexión ahora tendrá un brillo de neón */
-.timeline-container::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 0px;
-    height: 999px;
-    width: 3px;
-    background-color: #00ffff; /* Cian brillante */
-    box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff; /* Efecto de brillo */
-    transform: translateX(-50%);
-    z-index: 1;
-}
-
-/* Los nodos parecerán planetas o reactores */
-.timeline-node {
-    position: relative;
-    z-index: 2;
-    background-color: #0d1a2e; /* Azul muy oscuro */
-    border: 3px solid #00ffff; /* Borde cian */
-    border-radius: 50%;
-    width: 90px;
-    height: 90px;
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1rem;
+    background: #ffffff;
+    border: none;
+    border-radius: 0;
+    color: #000000;
+    font-size: 0.85rem;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Inter', sans-serif;
+}
+
+.btn-confirmar:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+}
+
+.btn-confirmar:active {
+    transform: translateY(0);
+}
+
+.btn-confirmar:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* --- NUEVA LÍNEA DE TIEMPO FIJA --- */
+
+.timeline-container {
+    /* Posicionamiento fijo en la pantalla */
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9999; /* Siempre encima del visor */
+
+    /* Estilo visual */
+    background-color: transparent;
+    border: none;
+
+    /* Layout */
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    text-align: center;
-    margin: 20px 0;
-    flex-shrink: 0;
-    /* Sombra exterior para el efecto de brillo */
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    gap: 15px;
+    padding: 20px 10px;
+
+    /* Scroll si hay muchas fechas */
+    max-height: 80vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+/* Scroll personalizado para navegadores webkit */
+.timeline-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.timeline-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.timeline-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+}
+
+/* Nodos de la línea de tiempo - Minimalistas y transparentes */
+.timeline-node {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+
+    min-width: 70px;
 }
 
 .timeline-node:hover {
-    /* El brillo se intensifica al pasar el mouse */
-    border-color: #ffffff;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.5);
-    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: scale(1.05);
 }
 
-/* El nodo seleccionado tendrá un brillo distintivo y permanente */
 .timeline-node.activo {
-    border-color: #adff2f; /* Verde-lima brillante */
-    background-color: #0d1a2e;
-    box-shadow: 0 0 20px #adff2f, 0 0 30px #adff2f;
+    background-color: rgba(100, 150, 255, 0.4);
+    border-color: rgba(100, 200, 255, 0.8);
+    box-shadow: 0 0 15px rgba(100, 150, 255, 0.5);
 }
 
-/* El texto dentro de los nodos también tendrá un ligero brillo */
+/* Texto de las fechas */
 .timeline-date {
-    font-size: 16px;
-    font-weight: 700; /* Más grueso */
-    color: #ffffff;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.2;
 }
 
 .timeline-year {
-    font-size: 13px;
-    color: #cccccc;
-    text-shadow: 0 0 3px rgba(200, 200, 200, 0.7);
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.2;
+}
+
+/* --- PANEL DE MARCADORES FLOTANTE --- */
+
+/* Botón toggle para marcadores */
+.btn-toggle-marcadores {
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    z-index: 9998;
+    width: 48px;
+    height: 48px;
+    background: rgba(20, 20, 20, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.3rem;
+}
+
+.btn-toggle-marcadores:hover {
+    background: rgba(40, 40, 40, 0.95);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    color: #ffffff;
+}
+
+/* Panel de marcadores */
+.panel-marcadores {
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    width: 320px;
+    max-height: 500px;
+    background: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0;
+    padding: 1.5rem;
+    color: white;
+    overflow-y: auto;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+    z-index: 9997;
+    transform: translateY(0);
+    opacity: 1;
+    margin-bottom: 4%;/* Espacio para el botón toggle */
+}
+
+/* Estado cerrado */
+.panel-marcadores.cerrado {
+    transform: translateY(calc(100% + 25px));
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Header del panel */
+.panel-marcadores-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.panel-marcadores-header h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    margin: 0;
+}
+
+.btn-cerrar-marcadores {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    line-height: 1;
+    padding: 0;
+}
+
+.btn-cerrar-marcadores:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Contenido del panel */
+.panel-marcadores-contenido {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.marcadores-seccion {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.marcadores-seccion-titulo {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.marcadores-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.marcadores-vacio {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.85rem;
+    font-style: italic;
+    padding: 1rem;
+    text-align: center;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+/* Scroll personalizado para el panel */
+.panel-marcadores::-webkit-scrollbar {
+    width: 4px;
+}
+
+.panel-marcadores::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.panel-marcadores::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 0;
+}
+
+.panel-marcadores::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* --- CONTROLES DE ZOOM PERSONALIZADOS ESTILO GOOGLE MAPS --- */
+
+.custom-zoom-controls {
+    position: absolute;
+    bottom: 100px;
+    right: 20px;
+    z-index: 1000;
+    margin-right: 10%;
+    display: flex;
+    flex-direction: column;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.zoom-btn {
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 20px;
+    font-weight: 300;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    font-family: 'Inter', sans-serif;
+    padding: 0;
+    line-height: 1;
+}
+
+.zoom-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.zoom-btn:active {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.zoom-btn.zoom-reset {
+    font-size: 18px;
+}
+
+.zoom-separator {
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
 }
 

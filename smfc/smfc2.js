@@ -7,20 +7,56 @@ const channel = new BroadcastChannel('actualizar_marcadores');
     const viewer = OpenSeadragon({
         id: "viewer2",
         prefixUrl: "https://openseadragon.github.io/openseadragon/images/",
-        tileSources: "../image/lunas/luneta_cuatro.dzi", // Tu archivo DZI aquí
-        showNavigator: true,
+        tileSources: "../image/lunas/luneta_cuatro.dzi",
+
+        // --- Opciones de visualización ---
+        showNavigator: false,
         defaultZoomLevel: 0,
         minZoomLevel: 0.5,
         maxZoomLevel: 10,
         visibilityRatio: 1.0,
         constrainDuringPan: false,
         zoomPerScroll: 1.3,
+
+        // --- DESHABILITAR TODOS LOS CONTROLES NATIVOS ---
+        showZoomControl: false,
+        showHomeControl: false,
+        showFullPageControl: false,
+        showRotationControl: false,
+        showSequenceControl: false,
+        showNavigationControl: false,
+
         gestureSettingsMouse: {
             clickToZoom: false,
             dblClickToZoom: false,
             scrollToZoom: true
         }
     });
+
+    // CONTROLES DE ZOOM PERSONALIZADOS
+    const zoomInBtn = document.getElementById('zoom-in-viewer2');
+    const zoomOutBtn = document.getElementById('zoom-out-viewer2');
+    const zoomResetBtn = document.getElementById('zoom-reset-viewer2');
+
+    if (zoomInBtn) {
+        zoomInBtn.addEventListener('click', function() {
+            viewer.viewport.zoomBy(1.3);
+            viewer.viewport.applyConstraints();
+        });
+    }
+
+    if (zoomOutBtn) {
+        zoomOutBtn.addEventListener('click', function() {
+            viewer.viewport.zoomBy(0.7);
+            viewer.viewport.applyConstraints();
+        });
+    }
+
+    if (zoomResetBtn) {
+        zoomResetBtn.addEventListener('click', function() {
+            viewer.viewport.goHome();
+        });
+    }
 //
     // Función para cambiar la imagen del visor
     window.cambiarImagenVisor2 = function(fecha) {
