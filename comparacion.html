@@ -42,16 +42,21 @@
        <div id="contenedor-comparacion">
     <!-- DIV 2: Visor imagen izquierda -->
     <div id="visor-izquierdo" class="visor">
-        <div class="etiqueta-visor">Imagen 1</div>
+        <div class="header-visor" id="header-izq">
+            <span class="info-display" id="info-display-izq">Luna 1</span>
+            <span class="icono-toggle">▼</span>
+        </div>
 
-        <div  style="width: 100%;"id="app">
+        <div style="width: 100%;" id="app">
             <div style="width: 100%;" id="viewer"></div>
         </div>
             
-            <script src="smfc/smfc1.js"></script>
+        <script src="smfc/smfc1.js"></script>
         
         <!-- Panel de fecha izquierdo -->
-        <div class="panel-fecha">
+        <div class="panel-fecha oculto" id="panel-fecha-izq">
+            <h3 class="titulo-fases">Fases de la Luna</h3>
+            
             <!-- Botones de fases -->
             <div class="fases-lunares">
                 <button class="btn-fase" data-fase="llena" data-visor="izq">
@@ -89,19 +94,24 @@
                 🚀Confirmar
             </button>
         </div>
-    </div> <!-- ✅ Cierre correcto de visor-izquierdo -->
+    </div>
 
     <!-- DIV 3: Visor imagen derecha -->
     <div id="visor-derecho" class="visor">
-        <div class="etiqueta-visor">Imagen 2</div>
+        <div class="header-visor" id="header-der">
+            <span class="info-display" id="info-display-der">Luna 2</span>
+            <span class="icono-toggle">▼</span>
+        </div>
         
-        <div  style="width: 100%;"id="app">
+        <div style="width: 100%;" id="app">
             <div style="width: 100%;" id="viewer2"></div>
         </div>
-            <script src="smfc/smfc2.js"></script>
+        <script src="smfc/smfc2.js"></script>
         
         <!-- Panel de fecha derecho -->
-        <div class="panel-fecha">
+        <div class="panel-fecha oculto" id="panel-fecha-der">
+            <h3 class="titulo-fases">Fases de la Luna</h3>
+            
             <!-- Botones de fases -->
             <div class="fases-lunares">
                 <button class="btn-fase" data-fase="llena" data-visor="der">
@@ -138,7 +148,7 @@
                 🚀Confirmar
             </button>
         </div>
-    </div> <!-- ✅ Cierre correcto de visor-derecho -->
+    </div>
 </div> 
 
     <script src="https://openseadragon.github.io/openseadragon/openseadragon.min.js"></script>

@@ -23,12 +23,21 @@ const fasesLunares = {
 };
 
 // Manejar clicks en botones de fase
+// Manejar clicks en botones de fase
 document.querySelectorAll('.btn-fase').forEach(btn => {
     btn.addEventListener('click', function() {
         const fase = this.dataset.fase;
         const visor = this.dataset.visor;
         const dropdown = document.getElementById(`dropdown-fechas-${visor}`);
         const select = document.getElementById(`select-fechas-${visor}`);
+        
+        // Si el botón ya está activo, deseleccionarlo
+        if (this.classList.contains('activo')) {
+            this.classList.remove('activo');
+            dropdown.classList.add('oculto');
+            select.innerHTML = '<option value="">Selecciona una fecha de esta fase</option>';
+            return;
+        }
         
         // Remover clase activo de todos los botones del mismo visor
         document.querySelectorAll(`[data-visor="${visor}"]`).forEach(b => {
@@ -55,14 +64,30 @@ document.querySelectorAll('.btn-fase').forEach(btn => {
 // Manejar selección de fecha del dropdown
 document.getElementById('select-fechas-izq').addEventListener('change', function() {
     if (this.value) {
+        const faseActiva = document.querySelector('.btn-fase.activo[data-visor="izq"]');
+        const fase = faseActiva ? faseActiva.dataset.fase : null;
+        
         document.getElementById('fecha-izq').value = this.value;
         document.getElementById('fecha-izq').dispatchEvent(new Event('change'));
+        
+        // Actualizar header inmediatamente
+        if (typeof window.actualizarInfoDisplay === 'function') {
+            window.actualizarInfoDisplay('izq', fase, this.value);
+        }
     }
 });
 
 document.getElementById('select-fechas-der').addEventListener('change', function() {
     if (this.value) {
+        const faseActiva = document.querySelector('.btn-fase.activo[data-visor="der"]');
+        const fase = faseActiva ? faseActiva.dataset.fase : null;
+        
         document.getElementById('fecha-der').value = this.value;
         document.getElementById('fecha-der').dispatchEvent(new Event('change'));
+        
+        // Actualizar header inmediatamente
+        if (typeof window.actualizarInfoDisplay === 'function') {
+            window.actualizarInfoDisplay('der', fase, this.value);
+        }
     }
 });
