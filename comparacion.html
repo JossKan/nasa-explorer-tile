@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/estilos.css">
     <link rel="stylesheet" href="css/comparacion.css">
     <script src="https://cdn.jsdelivr.net/npm/openseadragon@4.1.0/build/openseadragon/openseadragon.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
@@ -29,6 +30,7 @@
             <ul>
                 <li><a href="index.html">Inicio</a></li>
                 <li><a href="bienvenida.html">Salir de Comparación</a></li>
+                <li><button id="btnDescargar">Descargar como PNG</button></li>
             </ul>
         </div>
         
@@ -193,6 +195,33 @@
     <script src="smfc/script.js"></script>
     <script src="smfc/fechas.js"></script>
     <script src="smfc/fases-lunares.js"></script>
+
+    <script>
+
+    document.getElementById('btnDescargar').addEventListener('click', function() {
+    html2canvas(document.getElementById('contenedor-comparacion')).then(function(canvas) {
+        let ctx = canvas.getContext('2d');
+
+        // 🔹 Agrega texto encima de la imagen
+        ctx.font = "16px Arial";
+        ctx.fillStyle = "white";
+        let fecha = new Date().toLocaleString();
+        ctx.fillText("Fecha de descarga: " + fecha, 28, canvas.height - 20);
+        ctx.fillText("Fuente: NASA", 28, canvas.height - 5);
+
+        ctx.fillText("Fecha de descarga: " + fecha, 725, canvas.height - 20);
+        ctx.fillText("Fuente: NASA", 725, canvas.height - 5);
+
+        let imgData = canvas.toDataURL('image/png');
+
+        let link = document.createElement('a');
+        link.href = imgData;
+        link.download = `captura_${fecha.replace(/[:\/, ]/g, '-')}.png`;
+
+        link.click();
+    });
+});
+</script>
 
 </body>
 </html>
